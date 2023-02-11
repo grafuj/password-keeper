@@ -39,4 +39,6 @@ https://www.figma.com/file/glePRGLLjpdTQ8c4KOKRyg/PasswordKeeper?node-id=1%3A620
 @spoon1113
 @Juelzlum
 
+Completed ERD:
+https://app.diagrams.net/#G1Bxdv4b2ZvNWDUm1n_UvMFIJGP6JdKzxW
 
