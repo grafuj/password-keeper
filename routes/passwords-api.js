@@ -16,7 +16,10 @@ router.get('/', (req, res) => { // the /passwords is assumed, just like listed i
   db.query(query)
     .then(data => {
       const passwords = data.rows;
-      res.json({ passwords });
+      console.log('pw:', passwords)
+      // res.json({ passwords });
+      res.render('passwords' , {passwords});
+
     })
     .catch(err => {
       res

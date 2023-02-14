@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.use('*', passwordApiRoutes);
+// app.use('*', passwordApiRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
