@@ -6,16 +6,17 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const db = require('../db/connection');
 
-router.get('/', (req, res) => {
-  const query = `SELECT * FROM widgets`;
+//GET passwords
+router.get('/', (req, res) => { // the /passwords is assumed, just like listed in server.js
+  const query = `SELECT * FROM passwords`;
   console.log(query);
   db.query(query)
     .then(data => {
-      const widgets = data.rows;
-      res.json({ widgets });
+      const passwords = data.rows;
+      res.json({ passwords });
     })
     .catch(err => {
       res
@@ -23,5 +24,16 @@ router.get('/', (req, res) => {
         .json({ error: err.message });
     });
 });
+
+//GET password/:id
+router.get('/:id', (req, res) => {
+  const id = req.params.id;
+  client.query('SELECT * FROM passwords  WHERE id = $1', [id])
+    .then((response) => {
+      res.json(response.rows[0]);
+    });
+});
+
+
 
 module.exports = router;
