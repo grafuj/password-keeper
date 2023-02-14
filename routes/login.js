@@ -32,12 +32,13 @@ router.get("/login/:id", (req, res) => {
 
 });
 
-//'juelzlum@gmail.com', 'password'
+//'juelzlum@gmail.com', '123'
 const getUserEmail = (email) => {
   return pool.query(`
   SELECT *
   FROM USERS
-  WHERE EMAIL = $1`, [email]).then(resp => resp.rows[0]);
+  WHERE EMAIL = $1`, [email])
+  .then(resp => console.log(resp.rows));
 };
 
 // const getUserPassword = (password) => {
