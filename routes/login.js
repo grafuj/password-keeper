@@ -3,7 +3,7 @@ const router = express.Router();
 const cookieSession = require('cookie-session');
 const bodyParses = require('body-parser');
 const { Pool } = require('pg');
-
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -31,28 +31,32 @@ router.get("/login/:id", (req, res) => {
   res.redirect('/users.ejs'); //password page, which ever would that be
 
 });
+
+//'juelzlum@gmail.com', 'password'
 const getUserEmail = (email) => {
   return pool.query(`
   SELECT *
   FROM USERS
-  WHERE EMAIL = $1`, [email].then(resp.rows[0]));
+  WHERE EMAIL = $1`, [email]).then(resp => resp.rows[0]);
 };
 
-const getUserPassword = (password) => {
-  return pool.query(`
-  SELECT *
-  FROM USERS
-  WHERE PASSWORD =$1`, [password].then(resp.rows[0]));
-};
+// const getUserPassword = (password) => {
+//   return pool.query(`
+//   SELECT *
+//   FROM USERS
+//   WHERE PASSWORD =$1`, [password].then(resp.rows[0]));
+// };
 
-const login = (email, password) => {
-  if (database.getUserEmail(email) && getUserPassword(password)) {
-    return user_id;
-  }
-
-};
-
-router.post("/login", (req, res) => {
+const login =  function(email, password) {
+  return getUserEmail(email)
+  .then(user => {
+    if (bcrypt.compareSync(password, user.password)) {
+      return user;
+    }
+    return null;
+  });
+}
+router.post("/", (req, res) => {
   const { email, password } = req.body;
   login(email, password)
     .then(user => {
