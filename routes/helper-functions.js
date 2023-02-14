@@ -25,4 +25,14 @@ const generateRandomString = (length, containLowercase, containUppercase, contai
   return randStr;
 };
 
-module.exports = { generateRandomString }
+const getAllPasswords = (params) => {
+  let url = "/api/passwords";
+  if (params) {
+    url += "?" + params;
+  }
+  return $.ajax({
+    url,
+  });
+}
+
+module.exports = { generateRandomString, getAllPasswords }
