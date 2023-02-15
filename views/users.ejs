@@ -20,7 +20,21 @@
 <body>
   <h1>Users</h1>
   <button id="fetch-users">Fetch Users via AJAX</button>
-  <ul id="users"></ul>
+
+  <% for (let entry of users){ %>
+    <a></a>
+    <h3>
+      <!-- All the keys for reference -->
+      <!-- <%= Object.keys(entry) %> -->
+      <%= entry.name %>
+      <%= entry.email %>
+      <%= entry.password %>
+      <%= entry.organization_id %>
+    </h3>
+  <%}%>
+  <h2>
+    <a href="/">Back to Index</a>
+  </h2>
 </body>
 
 </html>

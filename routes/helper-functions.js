@@ -34,5 +34,4 @@ const getAllPasswords = (params) => {
     url,
   });
 }
-
-module.exports = { generateRandomString, getAllPasswords }
+module.exports = { generateRandomString, getAllPasswords}

@@ -15,17 +15,16 @@ app.use(cookieSession({
 }));
 
 
-
-
+//get users
 router.get("/", (req, res) => {
   const templateVars = { value: false };
   res.render("login.ejs", templateVars);
 });
 
+//get users/:id
 router.get("/:id", (req, res) => {
   req.session.user_id = req.params.id;
-  res.redirect('/users.ejs'); //password page, which ever would that be
-
+  res.redirect('/users.ejs');
 });
 
 const getUserEmail = (email) => {
@@ -35,10 +34,6 @@ const getUserEmail = (email) => {
   WHERE EMAIL = $1`, [email])
   .then(resp => (resp.rows[0]));
 };
-
-getUserEmail('juelzlum@gmail.com')
-
-
 
 const login = function(email, password) {
   return getUserEmail(email)
@@ -50,7 +45,7 @@ const login = function(email, password) {
     return user
   })
 }
-
+//post /login
 router.post("/", (req, res) => {
   const { email, password } = req.body;
   login(email, password)
