@@ -60,6 +60,11 @@ router.post("/", (req, res) => {
     .catch(err => res.send('error:', err.message));
 });
 
+router.post('/logout',(req,res)=> {
+  req.session.userID = null
+  res.send({});
+})
+
 
 
 
