@@ -41,6 +41,7 @@ const getUserEmail = (email) => {
   .then(resp => console.log(resp.rows));
 };
 
+
 // const getUserPassword = (password) => {
 //   return pool.query(`
 //   SELECT *
@@ -48,7 +49,7 @@ const getUserEmail = (email) => {
 //   WHERE PASSWORD =$1`, [password].then(resp.rows[0]));
 // };
 
-const login =  function(email, password) {
+const login = function(email, password) {
   return getUserEmail(email)
   .then(user => {
     if (bcrypt.compareSync(password, user.password)) {
@@ -66,9 +67,9 @@ router.post("/", (req, res) => {
         return;
       }
       req.session.userID = user.id;
-      res.send({ user: { name: user.name, email: user.email, id: user.id } });
+     console.log({ user: { name: user.name, email: user.email, id: user.id } });
     })
-    .catch(e => res.send(e));
+    .catch(err => console.log(err.message));
 });
 
 
