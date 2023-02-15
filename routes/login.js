@@ -16,20 +16,18 @@ app.use(cookieSession({
 
 
 
-//get /login/
+
 router.get("/", (req, res) => {
   const templateVars = { value: false };
   res.render("login.ejs", templateVars);
 });
 
-//get /login/login/:id
 router.get("/:id", (req, res) => {
   req.session.user_id = req.params.id;
   res.redirect('/users.ejs'); //password page, which ever would that be
 
 });
 
-//'juelzlum@gmail.com', 'password'
 const getUserEmail = (email) => {
   return db.query(`
   SELECT *
@@ -39,14 +37,6 @@ const getUserEmail = (email) => {
 };
 
 getUserEmail('juelzlum@gmail.com')
-
-// const getUserPassword = (password) => {
-//   return db.query(`
-//   SELECT *
-//   FROM USERS
-//   WHERE PASSWORD =$1`, [password]).then(resp => console.log(resp.rows))
-// };
-// getUserPassword('password')
 
 
 
@@ -60,9 +50,6 @@ const login = function(email, password) {
     return user
   })
 }
-// login('juelzlum@gmail.com, password')
-
-// /login/login
 
 router.post("/", (req, res) => {
   const { email, password } = req.body;
