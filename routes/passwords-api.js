@@ -7,17 +7,14 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require('../db/connection');
+const userQueries = require('../db/queries/passwords');
+
 
 //GET passwords
 router.get('/', (req, res) => { // the /passwords is assumed, just like listed in server.js
-  const query = `SELECT * FROM passwords`;
-  console.log(query);
-  db.query(query)
-    .then(data => {
-      const passwords = data.rows;
-      console.log('pw:', passwords)
-      // res.json({ passwords });
+  userQueries.getPasswords()
+    .then(passwords => {
+      // console.log("data:", passwords)
       res.render('passwords' , {passwords});
 
     })
