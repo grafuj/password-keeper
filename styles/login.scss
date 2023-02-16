@@ -1,0 +1,36 @@
+body {
+  background-color: pink;
+}
+
+.login{
+  width: 600px;
+  margin: auto;
+  padding: 80px;
+  background: #96b3ad;
+  border-radius: 10px ;
+
+}
+
+h3 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#email {
+  width: 200px;
+  height: 30px;
+  border-radius: 2px;
+  border: none;
+}
+#password {
+  width: 200px;
+  height: 30px;
+  border-radius: 2px;
+  border: none;
+}
+
+#login-button {
+  width: 200px;
+  height: 30px;
+
+}

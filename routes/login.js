@@ -21,6 +21,8 @@ const pool = new Pool({
 
 pool.connect()
 
+
+//get users
 router.get("/", (req, res) => {
   const templateVars = { value: false };
   res.render("login.ejs", templateVars);

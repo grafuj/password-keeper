@@ -1,19 +1,15 @@
  <!-- Bootstrap CSS -->
  <link
- rel="stylesheet"
- href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
- integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
- crossorigin="anonymous"
-/>
+ rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
 
-
+<link rel="stylesheet" href="/styles/header.css" type="text/css" />
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 crossorigin="anonymous"></script>
 
 <header>
  <nav class="navbar navbar-light bg-light">
-   <a class="navbar-brand" href="/"><strong>PasswordKeepR 🗝</strong><h6>Logged in as: test@test.com</h6> </a>
+   <a class="navbar-brand" href="/"><strong>PasswordKeepR </strong><h6>Logged in as: test@test.com</h6> </a>
    <div class="navbar-header"></div>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarbutton">
        <span class="navbar-toggler-icon"></span>
@@ -22,7 +18,6 @@ crossorigin="anonymous"></script>
      <ul class="navbar-nav">
        <li class="nav-item">
          <a href="/api/passwords" class="nav-link" style="margin: 0.5em;">My Passwords</a>
-         <a href="/passwords/create" class="nav-link" style="margin: 0.5em;">Create New Password</a>
        </li>
      </ul>
      <form class="logout-button" action="/logout" method="POST">
