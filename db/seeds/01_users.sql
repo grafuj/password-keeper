@@ -1,4 +1,4 @@
 INSERT INTO users (name, email, password)
-VALUES ('Spoon', 'spoon@hotmail.com', 'password'),
-('Graham', 'graham@outlook.com', 'password'),
-('Julian', 'juelzlum@gmail.com', 'password');
+VALUES ('samson','spoon@hotmail.com', 'password'),
+('graham', 'graham@outlook.com', 'password'),
+('julian', 'juelzlum@gmail.com', 'password');

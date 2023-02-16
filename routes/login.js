@@ -2,10 +2,8 @@ const express = require('express');
 const router = express.Router();
 const cookieSession = require('cookie-session');
 const bodyParses = require('body-parser');
-const { log } = require('console');
-const { getMaxListeners } = require('process');
-const db = require('../db/connection');
-const { reset } = require('nodemon');
+const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -14,7 +12,6 @@ app.use(cookieSession({
   keys: ['key1']
 }));
 
-//for everthing in this file, we're already going to http://localhost:8080/login, anything else is in addition to this url
 
 //get users
 router.get("/", (req, res) => {
@@ -22,19 +19,28 @@ router.get("/", (req, res) => {
   res.render("login.ejs", templateVars);
 });
 
-//get users/:id
-router.get("/:id", (req, res) => {
+router.get("/login/:id", (req, res) => {
   req.session.user_id = req.params.id;
-  res.redirect('/users.ejs');
+  res.redirect('/users.ejs'); //password page, which ever would that be
+
 });
 
+//'juelzlum@gmail.com', '123'
 const getUserEmail = (email) => {
-  return db.query(`
+  return pool.query(`
   SELECT *
   FROM USERS
   WHERE EMAIL = $1`, [email])
     .then(resp => (resp.rows[0]));
 };
+
+
+// const getUserPassword = (password) => {
+//   return pool.query(`
+//   SELECT *
+//   FROM USERS
+//   WHERE PASSWORD =$1`, [password].then(resp.rows[0]));
+// };
 
 const login = function(email, password) {
   return getUserEmail(email)
@@ -60,7 +66,7 @@ router.post("/", (req, res) => {
       console.log('creds:', loggedIn);
       res.redirect('/api/passwords');
     })
-    .catch(err => res.send('error:', err.message));
+    .catch(err => console.log(err.message));
 });
 
 // router.post('/logout', (req, res) => {
