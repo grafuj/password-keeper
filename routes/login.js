@@ -63,7 +63,7 @@ router.post("/", (req, res) => {
       }
       req.session.userID = user.id;
      console.log({ user: { name: user.name, email: user.email, id: user.id } });
-    })
+   })
     .catch(err => res.send('error:', err.message));
 });
 

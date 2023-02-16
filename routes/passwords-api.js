@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
 db.query(`
 INSERT INTO passwords (user_id, username, url, email, password, category)
 VALUES ($1, $2, $3, $4, $5, $6) returning *;
-`, [req.session.userID, req.body.username, req.body.url, req.body.email, req.body.password, 'music'])
+`, [req.session.userID, req.body.username, req.body.url, req.body.email, req.body.password, req.body.category])
   .then(resp=>{
     res.json(resp.rows[0])
   })
