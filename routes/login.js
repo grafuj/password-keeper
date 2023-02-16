@@ -4,6 +4,7 @@ const cookieSession = require('cookie-session');
 const bodyParses = require('body-parser');
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
+const db = require('../db/connection');
 
 const app = express();
 
@@ -27,20 +28,12 @@ router.get("/login/:id", (req, res) => {
 
 //'juelzlum@gmail.com', '123'
 const getUserEmail = (email) => {
-  return pool.query(`
+  return db.query(`
   SELECT *
   FROM USERS
   WHERE EMAIL = $1`, [email])
     .then(resp => (resp.rows[0]));
 };
-
-
-// const getUserPassword = (password) => {
-//   return pool.query(`
-//   SELECT *
-//   FROM USERS
-//   WHERE PASSWORD =$1`, [password].then(resp.rows[0]));
-// };
 
 const login = function(email, password) {
   return getUserEmail(email)
@@ -66,7 +59,7 @@ router.post("/", (req, res) => {
       console.log('creds:', loggedIn);
       res.redirect('/api/passwords');
     })
-    .catch(err => console.log(err.message));
+    .catch(err => res.send('error:', err.message));
 });
 
 // router.post('/logout', (req, res) => {
