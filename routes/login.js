@@ -12,6 +12,7 @@ app.use(cookieSession({
   keys: ['key1']
 }));
 
+<<<<<<< HEAD
 const pool = new Pool({
   host:'localhost',
   user:'vagrant',
@@ -21,6 +22,9 @@ const pool = new Pool({
 
 pool.connect()
 
+=======
+//for everthing in this file, we're already going to http://localhost:8080/login, anything else is in addition to this url
+>>>>>>> e9963286c77b6abbc34d5e8f849c75a165ae7b5d
 
 //get users
 router.get("/", (req, res) => {
@@ -40,7 +44,11 @@ const getUserEmail = (email) => {
   SELECT *
   FROM USERS
   WHERE EMAIL = $1`, [email])
+<<<<<<< HEAD
   .then(resp => console.log(resp.rows));
+=======
+    .then(resp => (resp.rows[0]));
+>>>>>>> e9963286c77b6abbc34d5e8f849c75a165ae7b5d
 };
 
 
@@ -53,6 +61,7 @@ const getUserEmail = (email) => {
 
 const login = function(email, password) {
   return getUserEmail(email)
+<<<<<<< HEAD
   .then(user => {
     if (bcrypt.compareSync(password, user.password)) {
       return user;
@@ -60,21 +69,44 @@ const login = function(email, password) {
     return null;
   });
 }
+=======
+    .then(user => {
+      if (password !== user.password) {
+
+        return null;
+      }
+      return user;
+    });
+};
+//post /login
+>>>>>>> e9963286c77b6abbc34d5e8f849c75a165ae7b5d
 router.post("/", (req, res) => {
   const { email, password } = req.body;
   login(email, password)
     .then(user => {
       if (!user) {
+<<<<<<< HEAD
         res.send({ error: "error" });
         return;
       }
       req.session.userID = user.id;
      console.log({ user: { name: user.name, email: user.email, id: user.id } });
+=======
+        res.send({ error: 'user not found!' });
+        return;
+      }
+      req.session.userID = user.id;
+      let loggedIn = { name: user.name, email: user.email, id: user.id };
+      console.log('creds:', loggedIn);
+      res.redirect('/api/passwords');
+>>>>>>> e9963286c77b6abbc34d5e8f849c75a165ae7b5d
     })
     .catch(err => console.log(err.message));
 });
 
-
-
+// router.post('/logout', (req, res) => {
+//   req.session.userID = null;
+//   res.send({});
+// });
 
 module.exports = router;

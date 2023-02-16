@@ -1,5 +1,5 @@
 //returns a random string of desired length, with booleans to determine what the password should contain
-const generateRandomString = (length, containLowercase, containUppercase, containNumbers, containSymbols) => {
+const generateRandomString = (length = 13, containLowercase = true, containUppercase = false, containNumbers = true, containSymbols = false) => {
   let bank = "";
   if (containLowercase) {
     let lowercase = 'abcdefghijklmnoqrstuvwxyz';
@@ -34,4 +34,5 @@ const getAllPasswords = (params) => {
     url,
   });
 }
-module.exports = { generateRandomString, getAllPasswords}
+
+module.exports = { generateRandomString, getAllPasswords }

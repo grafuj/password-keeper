@@ -7,13 +7,12 @@ const getPasswords = () => {
       return data.rows;
     });
 };
-const getPasswordById = (id) => {
-  return db.query('SELECT * FROM passwords WHERE id = $1;', [id])
+const getPasswordsByUserId = (user_id) => {
+  return db.query('SELECT * FROM passwords WHERE user_id = $1;', [user_id])
     .then(data => {
       console.log("from queries:", data.rows)
       return data.rows;
     });
 };
 
-module.exports = { getPasswords };
-
+module.exports = { getPasswords, getPasswordsByUserId };
