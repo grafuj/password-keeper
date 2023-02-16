@@ -15,7 +15,7 @@ app.use(cookieSession({
 }));
 
 //GET logout
-router.get('/logout', (req, res) => {
+router.get('/', (req, res) => {
   req.session.userID = null;
   res.redirect('/login');
 });

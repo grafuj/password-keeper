@@ -12,15 +12,15 @@ $(() => {
     const sym = $('#pw-symbol').is(':checked')
 
     console.log('variables:', myLength, lowerCase, upperCase, number, sym)
-    const password = genPassword(myLength, lowerCase, upperCase, number, sym)
 
+    const password = genPassword(myLength, lowerCase, upperCase, number, sym)
+    // console.log("pw:", password)
     //put the password into the pw entry field
     $("#pw-entry").val(password)
   })
 
   //returns a random string of desired length, with booleans to determine what the password should contain
   const genPassword = (length = 13, containLowercase = true, containUppercase = false, containNumbers = true, containSymbols = false) => {
-
     let bank = "";
     if (containLowercase) {
       let lowercase = 'abcdefghijklmnoqrstuvwxyz';
@@ -40,6 +40,9 @@ $(() => {
     }
 
     let randStr = "";
+    if (!bank.length) {
+      return randStr;
+    }
     for (let i = 0; i < length; i++) {
       randStr += bank[Math.floor(bank.length * Math.random())];
     }

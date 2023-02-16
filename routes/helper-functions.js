@@ -17,8 +17,12 @@ const generateRandomString = (length = 13, containLowercase = true, containUpper
     let symbols = "!@#$%^&*()_+-=,.<>";
     bank += symbols;
   }
-
+  console.log(bank)
   let randStr = "";
+  if(!containLowercase && !containUppercase && !containNumbers && !containSymbols) {
+    console.log('test')
+    return randStr;
+  }
   for (let i = 0; i < length; i++) {
     randStr += bank[Math.floor(bank.length * Math.random())];
   }
