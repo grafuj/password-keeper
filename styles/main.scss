@@ -1,8 +1,38 @@
-.body {
-  background-color: yellow;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: pink;
 }
-.container {
- color: red;
- display: flex;
- align-items: left;
+div{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+body h1{
+  font-size: 40px;
+}
+
+.description{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width:100%;
+  flex-wrap: wrap;
+  border:solid;
+  font-size: 20px;
+
+}
+
+ .loginbtn{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.loginbtn:hover{
+  background-color: gold
 }
