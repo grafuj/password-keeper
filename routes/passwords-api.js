@@ -12,7 +12,7 @@ const userQueries = require('../db/queries/passwords');
 
 //GET passwords
 router.get('/', (req, res) => { // the /passwords is assumed, just like listed in server.js
-  userQueries.getPasswords()
+  userQueries.getPasswordsByUserId(req.session.userID)
     .then(passwords => {
       // console.log("data:", passwords)
       res.render('passwords' , {passwords});
