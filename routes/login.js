@@ -14,6 +14,7 @@ app.use(cookieSession({
   keys: ['key1']
 }));
 
+//for everthing in this file, we're already going to http://localhost:8080/login, anything else is in addition to this url
 
 //get users
 router.get("/", (req, res) => {
@@ -32,41 +33,39 @@ const getUserEmail = (email) => {
   SELECT *
   FROM USERS
   WHERE EMAIL = $1`, [email])
-  .then(resp => (resp.rows[0]));
+    .then(resp => (resp.rows[0]));
 };
 
 const login = function(email, password) {
   return getUserEmail(email)
-  .then(user => {
-    if(password !== user.password) {
+    .then(user => {
+      if (password !== user.password) {
 
-      return null
-    }
-    return user
-  })
-}
+        return null;
+      }
+      return user;
+    });
+};
 //post /login
 router.post("/", (req, res) => {
   const { email, password } = req.body;
   login(email, password)
     .then(user => {
       if (!user) {
-        res.send({error: 'user not found!'});
+        res.send({ error: 'user not found!' });
         return;
       }
       req.session.userID = user.id;
-    //  res.send({ user: { name: user.name, email: user.email, id: user.id } });
-     res.redirect("/api/users")
+      let loggedIn = { name: user.name, email: user.email, id: user.id };
+      console.log('creds:', loggedIn);
+      res.redirect('/api/passwords');
     })
     .catch(err => res.send('error:', err.message));
 });
 
-router.post('/logout',(req,res)=> {
-  req.session.userID = null
-  res.send({});
-})
-
-
-
+// router.post('/logout', (req, res) => {
+//   req.session.userID = null;
+//   res.send({});
+// });
 
 module.exports = router;
