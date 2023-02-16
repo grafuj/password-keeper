@@ -59,7 +59,7 @@ $(() => {
         ${result.url}
         ${result.email}
         ${result.password}
-        music
+        ${result.category}
         </h3>`)
         $('.passwords').append(element)
 
