@@ -55,7 +55,8 @@ router.post("/", (req, res) => {
         return;
       }
       req.session.userID = user.id;
-     res.send({ user: { name: user.name, email: user.email, id: user.id } });
+    //  res.send({ user: { name: user.name, email: user.email, id: user.id } });
+     res.redirect("/api/users")
     })
     .catch(err => res.send('error:', err.message));
 });
