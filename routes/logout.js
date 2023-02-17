@@ -1,23 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const cookieSession = require('cookie-session');
-const bodyParses = require('body-parser');
-const { log } = require('console');
-const { getMaxListeners } = require('process');
-const db = require('../db/connection');
-const { reset } = require('nodemon');
 
-const app = express();
-
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1']
-}));
-
-//GET logout
-router.get('/logout', (req, res) => {
-  req.session.userID = null;
+//POST logout
+router.post('/', (req, res) => {
+  req.session = null;
   res.redirect('/login');
+  // res.send('testing logout2')
 });
 
 module.exports = router;

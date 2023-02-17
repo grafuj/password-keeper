@@ -46,7 +46,7 @@ $(() => {
     return randStr;
   };
   //can't use arrow functions,we want to use .this which will refer to what called the function as opposed to the parent
-  $('form').on('submit', function(event) {
+  $('form#create-password').on('submit', function(event) {
     event.preventDefault()
     const data = $(this).serialize()
     $.post('/api/passwords', data)
@@ -59,9 +59,7 @@ $(() => {
         music
         </h3>`)
         $('.passwords').append(element)
-
       })
-
   })
 
 

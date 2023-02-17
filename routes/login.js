@@ -10,19 +10,19 @@ const app = express();
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1']
+  keys: ['key1asdfasdf', 'extragoodgarbage123d', 'wfeoidvpuierwfksdfhk']
 }));
 
 
 //get users
 router.get("/", (req, res) => {
   const templateVars = { value: false };
-  res.render("login.ejs", templateVars);
+  res.render("login", templateVars);
 });
 
 router.get("/login/:id", (req, res) => {
   req.session.user_id = req.params.id;
-  res.redirect('/users.ejs'); //password page, which ever would that be
+  res.redirect('/users'); //password page, which ever would that be
 
 });
 
@@ -39,7 +39,6 @@ const login = function(email, password) {
   return getUserEmail(email)
     .then(user => {
       if (password !== user.password) {
-
         return null;
       }
       return user;

@@ -19,4 +19,4 @@ const getUserByEmail = (email) => {
     });
 };
 
-module.exports = { getUsers };
+module.exports = { getUsers, getUserById, getUserByEmail };
