@@ -68,4 +68,8 @@ $(() => {
         $('.passwords').append(element)
       })
   })
+
+  $('#edit-pw-button').on('click', function() {
+    $('#edit-pw').val()
+  })
 });
