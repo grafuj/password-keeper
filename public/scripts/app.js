@@ -15,10 +15,8 @@ $(() => {
     const number = $('#pw-number').is(':checked')
     const sym = $('#pw-symbol').is(':checked')
 
-    console.log('variables:', myLength, lowerCase, upperCase, number, sym)
 
     const password = genPassword(myLength, lowerCase, upperCase, number, sym)
-    // console.log("pw:", password)
     //put the password into the pw entry field
     $("#pw-entry").val(password)
   })
@@ -58,14 +56,17 @@ $(() => {
     const data = $(this).serialize()
     $.post('/api/passwords', data)
       .then(function(result){
-        const element =  $(`<h3>
+        const element =  $(`<td>
         ${result.username}
         ${result.url}
         ${result.email}
         ${result.password}
         ${result.category}
-        </h3>`)
+        </td>`)
         $('.passwords').append(element)
       })
   })
 });
+
+
+
