@@ -34,6 +34,7 @@ router.get('/', (req, res) => { // the /passwords is assumed, just like listed i
 //GET password/:id
 router.get('/:id', (req, res) => {
   const id = req.params.id;
+  // db.query('SELECT * FROM passwords  WHERE id = $1', [id])
   passwordQueries.getPasswordById(id)
     .then((password) => {
       res.json(password);
@@ -52,6 +53,7 @@ router.post('/', (req, res) => {
 
   passwordQueries.createPassword(passBody)
     .then(newPassword => {
+      console.log('new pw:', newPassword);
       res.json(newPassword);
     });
 });

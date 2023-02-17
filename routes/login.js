@@ -7,6 +7,11 @@ const userQueries = require('../db/queries/users');
 
 const app = express();
 
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1asdfasdf', 'extragoodgarbage123d', 'wfeoidvpuierwfksdfhk']
+}));
+
 
 //get users
 router.get("/", (req, res) => {
