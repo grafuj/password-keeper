@@ -1,18 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const cookieSession = require('cookie-session');
-const bodyParses = require('body-parser');
-const { log } = require('console');
-const { getMaxListeners } = require('process');
 const db = require('../db/connection');
-const { reset } = require('nodemon');
+const userQueries = require('../db/queries/users');
+
 
 const app = express();
-
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1asdfasdf', 'extragoodgarbage123d', 'wfeoidvpuierwfksdfhk']
-}));
 
 //for everthing in this file, we're already going to http://localhost:8080/login, anything else is in addition to this url
 
@@ -29,16 +22,8 @@ router.get("/:id", (req, res) => {
 
 });
 
-const getUserEmail = (email) => {
-  return db.query(`
-  SELECT *
-  FROM USERS
-  WHERE EMAIL = $1`, [email])
-    .then(resp => (resp.rows[0]));
-};
-
 const login = function(email, password) {
-  return getUserEmail(email)
+  return userQueries.getUserByEmail(email)
     .then(user => {
       if (password !== user.password) {
         return null;
@@ -62,10 +47,5 @@ router.post("/", (req, res) => {
     })
     .catch(err => res.send('error:', err.message));
 });
-
-// router.post('/logout', (req, res) => {
-//   req.session.userID = null;
-//   res.send({});
-// });
 
 module.exports = router;

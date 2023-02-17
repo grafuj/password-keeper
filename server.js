@@ -13,8 +13,8 @@ const app = express();
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1']
-}))
+  keys: ['key1asdfasdf', 'extragoodgarbage123d', 'wfeoidvpuierwfksdfhk']
+}));
 
 
 app.set('view engine', 'ejs');
