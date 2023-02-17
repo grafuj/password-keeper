@@ -1,8 +1,12 @@
 
-
-
 // Client facing scripts here
 $(() => {
+
+  $('#pw-copy').on('click', function() {
+    const myPassword = $('#pw-entry').val();
+    navigator.clipboard.writeText(myPassword);
+    alert("Copied password successfully");
+  });
 
   $('#generatebutton').on('click', function() {
     const myLength = $('#pw-length').val()
@@ -68,5 +72,12 @@ $(() => {
   })
 
 
-});
+const copyPassword = function() {
+  alert('testing copy password')
+  let copyText = document.getElementById("pw-entry");
+  copyText.select();
+  navigator.clipboard.writeText(copyText.value)
+  alert("Copied password successfully")
+};
 
+});
