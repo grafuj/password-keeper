@@ -9,22 +9,32 @@ crossorigin="anonymous"></script>
 
 <header>
  <nav class="navbar navbar-light bg-light">
-   <a class="navbar-brand" href="/"><strong>PasswordKeepR </strong><h6>Logged in as: test@test.com</h6> </a>
-   <div class="navbar-header"></div>
+   <a class="navbar-brand" href="/"><strong>PasswordKeepR </strong></a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarbutton">
        <span class="navbar-toggler-icon"></span>
      </button>
    <div class="collapse navbar-collapse" id="navbarbutton">
-     <ul class="navbar-nav">
-       <li class="nav-item">
-         <a href="/api/passwords" class="nav-link" style="margin: 0.5em;">My Passwords</a>
-       </li>
-     </ul>
-     <form class="logout-button" action="/logout" method="POST">
-       <button class = "btn btn-outline-dark" type="submit" style="margin: 0.5em;">Logout</button>
-     </form>
+    <% if (user) { %>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="/api/passwords" class="nav-link" style="margin: 0.5em;">My Passwords</a>
+        </li>
+      </ul>
+      <form class="logout-button" action="/logout" method="POST">
+        <label>Logged in as: <%- user %></label>
+        <button class = "btn btn-outline-dark" type="submit" style="margin: 0.5em;">Logout</button>
+      </form>
+    <% } else { %>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="/login" class="nav-link" style="margin: 0.5em;">Login</a>
+        </li>
+      </ul>
+    <% } %>
+
    </div>
  </nav>
+
  <script src="https://code.jquery.com/jquery-3.5.1.js"
  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
