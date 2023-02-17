@@ -72,12 +72,4 @@ $(() => {
   })
 
 
-const copyPassword = function() {
-  alert('testing copy password')
-  let copyText = document.getElementById("pw-entry");
-  copyText.select();
-  navigator.clipboard.writeText(copyText.value)
-  alert("Copied password successfully")
-};
-
 });

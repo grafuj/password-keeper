@@ -13,15 +13,6 @@ app.use(cookieSession({
   keys: ['key1']
 }));
 
-const pool = new Pool({
-  host:'localhost',
-  user:'vagrant',
-  password:'123',
-  name:'midterm'
-})
-
-pool.connect()
-
 
 //get users
 router.get("/", (req, res) => {
@@ -41,29 +32,33 @@ const getUserEmail = (email) => {
   SELECT *
   FROM USERS
   WHERE EMAIL = $1`, [email])
-  .then(resp => console.log(resp.rows));
+    .then(resp => (resp.rows[0]));
 };
 
 const login = function(email, password) {
   return getUserEmail(email)
-  .then(user => {
-    if (bcrypt.compareSync(password, user.password)) {
+    .then(user => {
+      if (password !== user.password) {
+
+        return null;
+      }
       return user;
-    }
-    return null;
-  });
-}
+    });
+};
+//post /login
 router.post("/", (req, res) => {
   const { email, password } = req.body;
   login(email, password)
     .then(user => {
       if (!user) {
-        res.send({ error: "error" });
+        res.send({ error: 'user not found!' });
         return;
       }
       req.session.userID = user.id;
-     console.log({ user: { name: user.name, email: user.email, id: user.id } });
-   })
+      let loggedIn = { name: user.name, email: user.email, id: user.id };
+      console.log('creds:', loggedIn);
+      res.redirect('/api/passwords');
+    })
     .catch(err => res.send('error:', err.message));
 });
 
