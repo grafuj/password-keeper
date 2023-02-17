@@ -20,7 +20,7 @@ const generateRandomString = (length = 13, containLowercase = true, containUpper
   console.log(bank)
   let randStr = "";
   if(!containLowercase && !containUppercase && !containNumbers && !containSymbols) {
-    console.log('test')
+    console.log('no ticks selected')
     return randStr;
   }
   for (let i = 0; i < length; i++) {
