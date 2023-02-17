@@ -53,6 +53,7 @@ router.post('/', (req, res) => {
 
   passwordQueries.createPassword(passBody)
     .then(newPassword => {
+      console.log('new pw:', newPassword);
       res.json(newPassword);
     });
 });
