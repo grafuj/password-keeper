@@ -11,7 +11,7 @@ const app = express();
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1']
+  keys: ['key1asdfasdf', 'extragoodgarbage123d', 'wfeoidvpuierwfksdfhk']
 }));
 
 //for everthing in this file, we're already going to http://localhost:8080/login, anything else is in addition to this url
@@ -19,13 +19,14 @@ app.use(cookieSession({
 //get users
 router.get("/", (req, res) => {
   const templateVars = { value: false };
-  res.render("login.ejs", templateVars);
+  res.render("login", templateVars);
 });
 
 //get users/:id
 router.get("/:id", (req, res) => {
   req.session.user_id = req.params.id;
-  res.redirect('/users.ejs');
+  res.redirect('/users'); //password page, which ever would that be
+
 });
 
 const getUserEmail = (email) => {
@@ -40,7 +41,6 @@ const login = function(email, password) {
   return getUserEmail(email)
     .then(user => {
       if (password !== user.password) {
-
         return null;
       }
       return user;

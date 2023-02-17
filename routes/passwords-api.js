@@ -7,18 +7,21 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require('../db/connection');
-const userQueries = require('../db/queries/passwords');
-const generateRandomString = require('../routes/helper-functions')
-
-
+// const db = require('../db/connection');
+const passwordQueries = require('../db/queries/passwords');
+const userQueries = require('../db/queries/users');
 
 //GET passwords
 router.get('/', (req, res) => { // the /passwords is assumed, just like listed in server.js
-  userQueries.getPasswordsByUserId(req.session.userID)
-    .then(passwords => {
+  let userID = req.session.userID;
+  // console.log('sesh:', req.session, Object.keys(req.session))
+  Promise.all([
+    passwordQueries.getPasswordsByUserId(userID),
+    userQueries.getUserById(userID)
+  ])
+    .then(all => {
       // console.log("data:", passwords)
-      res.render('passwords' , {passwords});
+      res.render('passwords', { passwords: all[0], user: all[1].name });
 
     })
     .catch(err => {
@@ -31,20 +34,27 @@ router.get('/', (req, res) => { // the /passwords is assumed, just like listed i
 //GET password/:id
 router.get('/:id', (req, res) => {
   const id = req.params.id;
-  db.query('SELECT * FROM passwords  WHERE id = $1', [id])
-    .then((response) => {
-      res.json(response.rows[0]);
+  // db.query('SELECT * FROM passwords  WHERE id = $1', [id])
+  passwordQueries.getPasswordById(id)
+    .then((password) => {
+      res.json(password);
     });
 });
 
 router.post('/', (req, res) => {
-db.query(`
-INSERT INTO passwords (user_id, username, url, email, password, category)
-VALUES ($1, $2, $3, $4, $5, $6) returning *;
-`, [req.session.userID, req.body.username, req.body.url, req.body.email, req.body.password, req.body.category])
-  .then(resp=>{
-    res.json(resp.rows[0])
-  })
-})
+  const passBody = {
+    user_id: req.session.userID,
+    username: req.body.username,
+    url: req.body.url,
+    email: req.body.email,
+    password: req.body.password,
+    category: req.body.category
+  };
+
+  passwordQueries.createPassword(passBody)
+    .then(newPassword => {
+      res.json(newPassword);
+    });
+});
 
 module.exports = router;
